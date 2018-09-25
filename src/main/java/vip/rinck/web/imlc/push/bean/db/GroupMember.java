@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "TABLE_GROUP_MEMBER")
+@Table(name = "TB_GROUP_MEMBER")
 public class GroupMember {
 
     public static final int PERMISSION_TYPE_NONE = 0;//默认权限，普通成员
