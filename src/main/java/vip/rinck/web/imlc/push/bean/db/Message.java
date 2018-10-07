@@ -4,6 +4,7 @@ package vip.rinck.web.imlc.push.bean.db;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import vip.rinck.web.imlc.push.bean.api.message.MessageCreateModel;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,11 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_MESSAGE")
 public class Message {
+
+    //发给人的
+    public static final int RECEIVER_TYPE_NONE = 1;
+    //发给群的
+    public static final int RECEIVER_TYPE_GROUP = 2;
 
     public static final int TYPE_STR = 1;//字符串类型
     public static final int TYPE_PIC = 2;//图片类型
@@ -74,6 +80,32 @@ public class Message {
     private Group group;
     @Column(updatable = false,insertable = false)
     private String groupId;
+
+    public Message() {
+
+    }
+
+    //普通朋友发送的构造函数
+    public Message(User sender, User receiver, MessageCreateModel model){
+        this.id = model.getId();
+        this.content = model.getContent();
+        this.attach = model.getAttach();
+        this.type = model.getType();
+
+        this.sender = sender;
+        this.receiver = receiver;
+    }
+
+    //发送群的构造函数
+    public Message(User sender,Group group,MessageCreateModel model){
+        this.id = model.getId();
+        this.content = model.getContent();
+        this.attach = model.getAttach();
+        this.type = model.getType();
+
+        this.sender = sender;
+        this.group = group;
+    }
 
     public String getId() {
         return id;

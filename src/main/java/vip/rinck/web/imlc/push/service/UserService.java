@@ -3,11 +3,13 @@ package vip.rinck.web.imlc.push.service;
 
 import com.google.common.base.Strings;
 import vip.rinck.web.imlc.push.bean.api.account.AccountRspModel;
+import vip.rinck.web.imlc.push.bean.api.base.PushModel;
 import vip.rinck.web.imlc.push.bean.api.base.ResponseModel;
 import vip.rinck.web.imlc.push.bean.api.user.UpdateInfoModel;
 import vip.rinck.web.imlc.push.bean.card.UserCard;
 import vip.rinck.web.imlc.push.bean.db.User;
 import vip.rinck.web.imlc.push.factory.UserFactory;
+import vip.rinck.web.imlc.push.utils.PushDispatcher;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -51,6 +53,7 @@ public class UserService extends BaseService {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseModel<List<UserCard>> contact() {
         User self = getSelf();
+
         //拿到我的联系人
         List<User> users = UserFactory.contacts(self);
         //转换为UserCard
