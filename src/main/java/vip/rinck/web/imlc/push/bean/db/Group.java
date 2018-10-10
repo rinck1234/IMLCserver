@@ -4,6 +4,7 @@ package vip.rinck.web.imlc.push.bean.db;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import vip.rinck.web.imlc.push.bean.api.group.GroupCreateModel;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -53,6 +54,17 @@ public class Group {
     private User owner;
     @Column(nullable = false,updatable = false,insertable = false)
     private String ownerId;
+
+    public Group(){
+
+    }
+
+    public Group(User owner, GroupCreateModel model){
+        this.owner = owner;
+        this.groupname = model.getName();
+        this.description = model.getDesc();
+        this.picture = model.getPicture();
+    }
 
     public String getId() {
         return id;

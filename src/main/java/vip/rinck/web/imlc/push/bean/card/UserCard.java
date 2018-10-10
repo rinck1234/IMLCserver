@@ -2,6 +2,7 @@ package vip.rinck.web.imlc.push.bean.card;
 
 import com.google.gson.annotations.Expose;
 import vip.rinck.web.imlc.push.bean.db.User;
+import vip.rinck.web.imlc.push.utils.Hib;
 
 import java.time.LocalDateTime;
 
@@ -56,8 +57,15 @@ public class UserCard {
         this.sex = user.getSex();
         this.modifyAt = user.getUpdateAt();
 
-        //TODO 得到关注人和粉丝的数量
         //user.getFollowers().size();
+        Hib.queryOnly(session -> {
+            //重新加载一次用户信息
+            session.load(user,user.getId());
+            //仅进行数量查询，并未查询整个集合
+            //要查询集合，必需在session存在情况下进行遍历
+            follows = user.getFollowers().size();
+            following = user.getFollowing().size();
+        });
     }
 
     public String getId() {

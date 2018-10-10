@@ -8,6 +8,7 @@ import vip.rinck.web.imlc.push.bean.api.base.ResponseModel;
 import vip.rinck.web.imlc.push.bean.api.user.UpdateInfoModel;
 import vip.rinck.web.imlc.push.bean.card.UserCard;
 import vip.rinck.web.imlc.push.bean.db.User;
+import vip.rinck.web.imlc.push.factory.PushFactory;
 import vip.rinck.web.imlc.push.factory.UserFactory;
 import vip.rinck.web.imlc.push.utils.PushDispatcher;
 
@@ -92,7 +93,9 @@ public class UserService extends BaseService {
             //关注失败，返回服务器异常
             return ResponseModel.buildServiceError();
         }
-        // TODO 通知我关注的人我关注了他
+        // 通知我关注的人我关注了他
+        //给TA发送一个我的信息
+        PushFactory.pushFollow(followUser,new UserCard(self));
 
         //返回关注的人的信息
         return ResponseModel.buildOk(new UserCard(followUser, true));

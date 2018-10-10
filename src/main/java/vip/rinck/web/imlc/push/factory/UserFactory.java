@@ -94,7 +94,8 @@ public class UserFactory {
         }else{
             //如果存在
             if(Strings.isNullOrEmpty(user.getPushId())){
-                //TODO 推送一条退出消息
+                //推送一条退出消息
+                PushFactory.pushLogout(user,user.getPushId());
             }
 
             //更新新的设备Id
